@@ -251,7 +251,11 @@ void GPT2::sample(const InferenceOptions& opts, GPT2Tokenizer& tokenizer)
         gten::Tensor logits = this->logits(input);
 
         gten::Timer timer(&time_sample_ms_);
-        const float *logits_data = logits.data_ptr<float>();
+        float *logits_data = logits.data_ptr<float>();
+
+        if (i == initial_pos) {
+            logits_data[eot_token] = -std::numeric_limits<float>::infinity();
+        }
 
         logits_probs.clear();
         for (int j = 0; j < logits_size; ++j)
