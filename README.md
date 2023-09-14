@@ -1,9 +1,9 @@
 # minchatgpt.cpp
 **minchatgpt.cpp** is a simple and minimal, pure-C++ implementation of a finetuned GPT-2 inference on CPU.
-I finetuned the medium and large GPT-2 models to the Alpaca dataset to respond to questions and follow instructions.
-The goal of this project is to recreate a baby version of ChatGPT by finetuning GPT-2 models to follow
-instructions and answer questions and also provide a full implementation of the models inference on CPU. The
-code used to finetune is at scripts/train.ipynb.
+I finetuned the medium and large GPT-2 models, to the best of my abilities, to the Alpaca dataset to respond
+to questions and follow instructions. The goal of this project is to recreate a baby version of ChatGPT by
+finetuning GPT-2 models to follow instructions and answer questions and also provide a full implementation of
+the models inference on CPU. The code used to finetune is at scripts/train.ipynb.
 
 ## Install and Run minchatgpt.
 ```
