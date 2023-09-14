@@ -102,7 +102,7 @@ inline Float16 fp32_to_fp16(Float32 f) noexcept
 #define GTEN_ASSERT(boolean, message, ...)                                              \
     if (!(boolean)) {                                                                   \
         std::fprintf(stderr, "\x1B[1;31m");                                             \
-        std::fprintf(stderr, "GTEN ERROR [File `%s` line %d]: ", __FILE__, __LINE__);   \
+        std::fprintf(stderr, "GTEN ERROR: [File `%s` line %d] ", __FILE__, __LINE__);   \
         std::fprintf(stderr, message, ##__VA_ARGS__);                                   \
         std::fprintf(stderr, "\n");                                                     \
         std::exit(EXIT_FAILURE);                                                        \

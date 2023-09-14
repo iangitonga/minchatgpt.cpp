@@ -195,47 +195,15 @@ inline Vec_f32x8 vec_f32x8_setzero() {
 
 #endif
 
-
-// Floating point conversion functions below are implemented using templates to ensure
-// type-safety because C++ performs implicit conversions between integal types silently
-// which can lead to subtle bugs if the conversion below functions are invoked with
-// inputs of the unintended type. With the templates implementation below, because we
-// explicitly provide and enforce input types, we cannot have such bugs.
-
-// Convert floating point value to Float32. Conversion to Float32 is only allowed from
-// Float32 or Float16. Attempt to convert from any other type will cause a runtime
-// error. I tried "static_assert" to throw compile-time error but it didn't work.
-template<typename input_t>
-inline Float32 fpcvt_to_fp32(input_t value) noexcept {
-    if constexpr(std::is_same<input_t, Float32>::value) {
-        return value;
-    }
-    else if constexpr(std::is_same<input_t, Float16>::value) {
-        return fp16_to_fp32(value);
-    }
-    else {
-        GTEN_ASSERT(false, "Conversion to FP32 is only allowed for FP32 and FP16 types.");
-        // Just to avoid "no return statement in function returning non-void" error in
-        // case we instantiate using a disallowed type.
-        return 0;
-    }
+// Convert IEEE 16-bit float (half precision) to 32-bit float (single precision).
+inline float fpcvt_htos(Float16 scalar) {
+    return fp16_to_fp32(scalar);
 }
 
-// Convert Float32 value to a given type. The allowed types are Float32 and Float16.
-// Attemt to convert to any other type will cause a runtime error.
-// I tried "static_assert" to throw compile-time error but it didn't work.
-template<typename output_t>
-inline output_t fpcvt_from_fp32(Float32 value) noexcept {
-    if constexpr(std::is_same<output_t, Float32>::value) {
-        return value;
-    }
-    else if constexpr(std::is_same<output_t, Float16>::value) {
-        return fp32_to_fp16(value);
-    }
-    else {
-        GTEN_ASSERT(false, "Conversion from FP32 is only allowed for FP32 and FP16 types.");
-        return 0;
-    }
+
+// Convert 32-bit float (single precision) to IEEE 16-bit float (half precision).
+inline Float16 fpcvt_stoh(float scalar) {
+    return fp32_to_fp16(scalar);
 }
 
 } // namespace gten

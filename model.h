@@ -142,7 +142,7 @@ GPT2::GPT2(std::ifstream& checkpoint, const GPT2Config& config_, int max_ctx)
 {
     blocks_.reserve(config.n_layer);
     for (int i = 0; i < config.n_layer; i++) {
-        blocks_.push_back(ResidualAttnBlock(config_.n_head, config_.n_embed, 4*config_.n_embed, max_ctx, /*mask_attn=*/true));
+        blocks_.push_back(ResidualAttnBlock(config_.n_head, config_.n_embed, 4*config_.n_embed, max_ctx));
     }
 
     load_from_checkpoint(checkpoint);
@@ -173,7 +173,7 @@ void GPT2::greedy_sample(const InferenceOptions& opts, GPT2Tokenizer& tokenizer)
 {
     time_sample_ms_ = 0;
 
-    const int max_ctx_size = 128;
+    const int max_ctx_size = 256;
 
     std::vector<int32_t> tokens = tokenizer.encode(opts.prompt);
     tokens.reserve(max_ctx_size);
@@ -185,7 +185,7 @@ void GPT2::greedy_sample(const InferenceOptions& opts, GPT2Tokenizer& tokenizer)
     const int n_iter = max_ctx_size;
     int64_t niter = 0;
     // Use cerr because it is unbuffered.
-    std::cerr << "\n\n" << opts.prompt;
+    std::cerr << "\n\n";
     for (int i = initial_pos; i < n_iter; i++)
     {
         // TODO: allow creation of tensors with external non-owning data.

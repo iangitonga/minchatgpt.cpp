@@ -3,11 +3,7 @@
 I finetuned the medium and large GPT-2 models to the Alpaca dataset to respond to questions and follow instructions.
 The goal of this project is to recreate a baby version of ChatGPT by finetuning GPT-2 models to follow
 instructions and answer questions and also provide a full implementation of the models inference on CPU. The
-code used to finetune is scripts/train.ipynb.
-
-**NOTE:** I am still in the process of developing this project and currently, the models are not able to
-reach anywhere near ChatGPT or even finetuned LLaMa performance.
-
+code used to finetune is at scripts/train.ipynb.
 
 ## Install and Run minchatgpt.
 ```

@@ -98,7 +98,7 @@ int main(int argc, char const *argv[])
 
     int res = std::system(options.get_dl_command().c_str());
     if (res != 0) {
-        std::cout << "Error: Failed to download '" << options.model_name << "' model due to network issues.\n";
+        std::cout << "Error: Failed to download '" << options.model_name << "' model. Check your network connection.\n";
         return -1;
     }
 
@@ -115,6 +115,7 @@ int main(int argc, char const *argv[])
     const int max_ctx = options.calculate_max_ctx_size(num_prompt_tokens);
 
     GPT2 model{checkpoint, config, max_ctx};
+
     std::cout << "Chat interface. Write your prompt and press enter to submit. Enter q or press ctrl+c to quit.\n";
     std::string prompt;
     while (true) {
